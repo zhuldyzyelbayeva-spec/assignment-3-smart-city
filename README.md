@@ -65,5 +65,3 @@ Windows PowerShell uses the same commands if `javac`, `java`, and `python` are o
 ## Conclusion
 Use Kruskal or Prim for affordable connected infrastructure networks; DSU supports efficient component merging. Use Kosaraju to identify mutually reachable directed regions, Kahn ordering to schedule acyclic dependencies and detect cycles, and Dijkstra to plan routes when all distances are nonnegative. Algorithm choice should reflect graph direction, connectivity, edge weights, and graph size.
 
-## GitHub submission
-Create a repository named `assignment-3`, commit the source code, README and results, then submit its GitHub URL. This archive does not create a remote repository or fabricate a GitHub link. Suggested commit milestones: graph/DSU; MST; directed algorithms; shortest paths; benchmarks/tests; report/plots.
