@@ -1,4 +1,84 @@
+
 package shortestpath;
-import graph.Graph;import java.util.*;
-public class Dijkstra {public static class Result{public final long[]dist;public final int[]prev;public long operations;Result(int n){dist=new long[n];prev=new int[n];Arrays.fill(dist,Long.MAX_VALUE);Arrays.fill(prev,-1);}public List<Integer>path(int target){if(dist[target]==Long.MAX_VALUE)return Collections.emptyList();LinkedList<Integer>p=new LinkedList<>();for(int v=target;v!=-1;v=prev[v])p.addFirst(v);return p;}}
- public static Result run(Graph g,int source){if(source<0||source>=g.n)throw new IllegalArgumentException();Result r=new Result(g.n);PriorityQueue<long[]>pq=new PriorityQueue<>(Comparator.comparingLong(a->a[0]));r.dist[source]=0;pq.add(new long[]{0,source});while(!pq.isEmpty()){long[]cur=pq.poll();r.operations++;int u=(int)cur[1];if(cur[0]!=r.dist[u])continue;for(Graph.Edge e:g.adj.get(u)){r.operations++;if(e.weight<0)throw new IllegalArgumentException("Negative weight");long nd=r.dist[u]+e.weight;if(nd<r.dist[e.to]){r.dist[e.to]=nd;r.prev[e.to]=u;pq.add(new long[]{nd,e.to});}}}return r;}}
+
+import graph.Graph;
+import java.util.*;
+
+public class Dijkstra {
+
+ public static class Result {
+
+  public final long[] dist;
+  public final int[] prev;
+  public long operations;
+
+  Result(int n) {
+   dist = new long[n];
+   prev = new int[n];
+
+   Arrays.fill(dist, Long.MAX_VALUE);
+   Arrays.fill(prev, -1);
+  }
+
+  public List<Integer> path(int target) {
+   if (dist[target] == Long.MAX_VALUE) {
+    return Collections.emptyList();
+   }
+
+   LinkedList<Integer> p = new LinkedList<>();
+
+   for (int v = target; v != -1; v = prev[v]) {
+    p.addFirst(v);
+   }
+
+   return p;
+  }
+ }
+
+ public static Result run(Graph g, int source) {
+  if (source < 0 || source >= g.n) {
+   throw new IllegalArgumentException();
+  }
+
+  Result r = new Result(g.n);
+
+  PriorityQueue<long[]> pq = new PriorityQueue<>(
+          Comparator.comparingLong(a -> a[0])
+  );
+
+  r.dist[source] = 0;
+  pq.add(new long[]{0, source});
+
+  while (!pq.isEmpty()) {
+   long[] cur = pq.poll();
+   r.operations++;
+
+   int u = (int) cur[1];
+
+   if (cur[0] != r.dist[u]) {
+    continue;
+   }
+
+   for (Graph.Edge e : g.adj.get(u)) {
+    r.operations++;
+
+    if (e.weight < 0) {
+     throw new IllegalArgumentException(
+             "Negative weight"
+     );
+    }
+
+    long nd = r.dist[u] + e.weight;
+
+    if (nd < r.dist[e.to]) {
+     r.dist[e.to] = nd;
+     r.prev[e.to] = u;
+
+     pq.add(new long[]{nd, e.to});
+    }
+   }
+  }
+
+  return r;
+ }
+}
